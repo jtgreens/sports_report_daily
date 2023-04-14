@@ -7,7 +7,7 @@ on:
     branches: [main, master]
   schedule:
     # https://crontab.guru/ - every day at 6am
-    - cron:  '0 6 * * *'
+    - cron:  '*/6  * * * *'
 
 name: Render-Report
 
