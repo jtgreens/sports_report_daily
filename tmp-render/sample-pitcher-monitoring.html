@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <style>
+    
+    
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-400.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-600.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-700.ttf") format("truetype");
+    }
+  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      background: #ffffff;
+    }
+    body {
+      font-family: "Source Sans 3 PDF", "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      color: #0b1526;
+      background: #ffffff;
+      font-size: 11.35px;
+      line-height: 1.38;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      text-rendering: geometricPrecision;
+      font-synthesis-weight: none;
+    }
+    .page {
+      width: 100%;
+      padding: 12px 16px;
+    }
+
+    /* Header */
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #002D72;
+      padding-bottom: 9px;
+      margin-bottom: 10px;
+    }
+    .report-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .report-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #002D72;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .report-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .report-meta {
+      text-align: right;
+      font-size: 10px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    /* Summary cards row */
+    .summary-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .summary-card {
+      flex: 1;
+      background: #f5f8fc;
+      border: 1px solid #d6dee9;
+      border-radius: 8px;
+      padding: 8px 10px 7px;
+      text-align: center;
+    }
+    .summary-card-label {
+      font-size: 9.2px;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.35px;
+      margin-bottom: 2px;
+    }
+    .summary-card-value {
+      font-size: 18.5px;
+      font-weight: 800;
+      color: #002D72;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Section headers */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #002D72;
+      text-transform: uppercase;
+      letter-spacing: 0.32px;
+      margin-bottom: 7px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #cdd7e5;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.25px;
+      font-variant-numeric: tabular-nums;
+    }
+    .data-table th {
+      background: #002D72;
+      color: #ffffff;
+      padding: 6px 8px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.24px;
+      white-space: nowrap;
+      border: 1px solid #1e3a8a;
+    }
+    .data-table td {
+      padding: 5px 8px;
+      text-align: center;
+      border: 1px solid #bcc8d8;
+      white-space: nowrap;
+    }
+    .data-table tbody tr:nth-child(even) {
+      background: #f4f7fb;
+    }
+    .data-table td.text-left {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    /* Two-column layout */
+    .two-col {
+       display: flex;
+       gap: 16px;
+       margin-bottom: 12px;
+     }
+    .two-col > * {
+      flex: 1;
+    }
+
+    /* Three-column layout */
+    .three-col {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    /* Chart containers */
+     .chart-container {
+       border: 1px solid #d6dee9;
+       border-radius: 8px;
+       padding: 10px 11px;
+       background: #fbfcfe;
+     }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #cdd7e5;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 8px;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: 0.15px;
+    }
+
+    /* Pitch type color dot */
+    .pitch-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 6px;
+      font-size: 9.2px;
+      color: #475569;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+  
+    
+    @page { size: letter landscape; margin: 5.5mm 6mm; }
+
+    .report-page {
+      width: 100%;
+      padding: 8px 10px 7px;
+    }
+    .report-page-break {
+      break-after: page;
+      page-break-after: always;
+    }
+
+    .report-header {
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom-width: 2px;
+      gap: 14px;
+    }
+    .report-header-left {
+      gap: 10px;
+      min-width: 0;
+    }
+    .report-logo {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+    .report-title {
+      font-size: 17.2px;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    .report-subtitle {
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      font-size: 10.4px;
+      line-height: 1.16;
+    }
+    .report-date {
+      color: #475569;
+      font-weight: 700;
+    }
+    .report-meta {
+      min-width: 66px;
+      padding-left: 10px;
+      border-left: 1px solid #cfd8e4;
+      font-size: 8.6px;
+      line-height: 1.2;
+    }
+    .report-count {
+      display: block;
+      font-size: 17px;
+      font-weight: 800;
+      color: #002D72;
+      line-height: 1;
+    }
+    .report-count-label {
+      display: block;
+      margin-top: 2px;
+      font-size: 7.2px;
+      text-transform: uppercase;
+      letter-spacing: 0.42px;
+      color: #475569;
+    }
+    .report-generated {
+      display: block;
+      margin-top: 5px;
+      font-size: 7.6px;
+      font-weight: 600;
+      line-height: 1.22;
+      color: #475569;
+    }
+    .filter-label {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 1px 8px;
+      font-size: 7.2px;
+      font-weight: 700;
+      color: #002D72;
+      background: #e6eef9;
+      border: 1px solid #bed0e6;
+      letter-spacing: 0.28px;
+      text-transform: uppercase;
+    }
+
+    .monitoring-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid #16396f;
+      border-radius: 0;
+      overflow: hidden;
+      font-variant-numeric: tabular-nums;
+      background: #ffffff;
+    }
+    .monitoring-table thead th {
+      background: #002D72;
+      color: #ffffff;
+      border-right: 1px solid #31548b;
+      border-bottom: 1px solid #31548b;
+      padding: 4px 3px;
+      font-size: 7.2px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .monitoring-table thead th.fixed-col {
+      text-align: left;
+    }
+    .monitoring-table thead th.align-center {
+      text-align: center;
+    }
+    .monitoring-table .group-row th {
+      background: #0d3268;
+      color: #dbe7ff;
+      font-size: 6.7px;
+      padding: 4px 3px 3px;
+    }
+    .monitoring-table .group-row th.group-current {
+      color: #ffffff;
+      background: #174f9f;
+    }
+    .monitoring-table .group-row th.group-future {
+      background: #123a77;
+    }
+    .monitoring-table .main-row th.col-selected {
+      background: #1f5bb3;
+      color: #ffffff;
+      box-shadow: inset 2px 0 0 #FF5910;
+    }
+    .monitoring-table .main-row th.col-future {
+      background: #19498d;
+    }
+    .monitoring-table .main-row th.col-boundary,
+    .monitoring-table td.col-boundary {
+      border-left: 2px solid #0f172a;
+    }
+    .monitoring-table .main-row th {
+      border-bottom: 2px solid #FF5910;
+    }
+    .monitoring-table th:last-child,
+    .monitoring-table td:last-child {
+      border-right: 0;
+    }
+    .monitoring-table td {
+      padding: 3px 4px;
+      border-right: 1px solid #b9c3cf;
+      border-bottom: 1px solid #c7d0db;
+      font-size: 7.65px;
+      color: #0b1526;
+      text-align: center;
+      vertical-align: middle;
+      background: #f7f8fa;
+      white-space: nowrap;
+    }
+    .monitoring-table tbody tr:nth-child(even) td {
+      background: #fbfcfd;
+    }
+    .monitoring-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .monitoring-table td.col-selected {
+      background: #eef5ff !important;
+      box-shadow: inset 2px 0 0 #2563eb;
+    }
+    .monitoring-table td.col-future {
+      background: #f4f7fb !important;
+    }
+    .monitoring-table td.text-left {
+      text-align: left;
+    }
+    .monitoring-table td.day-cell {
+      padding: 1px;
+      background: #f0f2f5;
+    }
+    .monitoring-table tbody tr:nth-child(even) td.day-cell {
+      background: #f4f6f8;
+    }
+    .monitoring-table tbody[data-density="compact"] td {
+      padding: 2.5px 3px;
+      font-size: 7.1px;
+    }
+    .monitoring-table tbody[data-density="ultra"] td {
+      padding: 2px 2px;
+      font-size: 6.5px;
+    }
+
+    .pitcher-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      min-width: 0;
+    }
+    .pitcher-name {
+      font-size: 9.1px;
+      font-weight: 700;
+      line-height: 1.16;
+      color: #0b1526;
+      white-space: normal;
+    }
+    .pitcher-name-left {
+      color: #b91c1c;
+    }
+    .monitoring-table tbody[data-density="compact"] .pitcher-name {
+      font-size: 8.35px;
+    }
+    .monitoring-table tbody[data-density="ultra"] .pitcher-name {
+      font-size: 7.55px;
+    }
+
+    .rest-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 13px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      padding: 0 8px;
+      font-size: 7.15px;
+      font-weight: 800;
+      line-height: 1;
+      text-align: center;
+      letter-spacing: 0.03px;
+      font-variant-numeric: tabular-nums;
+      border: 1px solid transparent;
+    }
+    .pill-text {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 100%;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .rest-pill,
+    .flag-badge,
+    .activity-cell {
+      border-radius: 4px;
+    }
+    .rest-pill,
+    .flag-badge {
+      height: 12px;
+    }
+    .rest-pill {
+      min-width: 28px;
+      padding: 0 9px;
+    }
+    .rest-red { background: #fdf0f3; color: #881337; border-color: #f3d4dc; }
+    .rest-amber { background: #fff7e3; color: #7c2d12; border-color: #f3e0b8; }
+    .rest-green { background: #eef8f1; color: #166534; border-color: #d2e9d8; }
+
+    .wl-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      width: 100%;
+      line-height: 1.08;
+    }
+    .wl-row {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      align-items: center;
+      column-gap: 5px;
+      width: 100%;
+    }
+    .wl-label {
+      color: #526175;
+      font-weight: 700;
+      font-size: 6.55px;
+      letter-spacing: 0.08px;
+    }
+    .wl-value {
+      font-weight: 700;
+      color: #0b1526;
+      font-size: 7px;
+      text-align: right;
+    }
+    .typical-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      width: 100%;
+      line-height: 1.06;
+    }
+    .typical-row {
+      display: grid;
+      grid-template-columns: 13px minmax(0, 1fr);
+      align-items: center;
+      column-gap: 5px;
+      width: 100%;
+    }
+    .typical-label {
+      color: #526175;
+      font-weight: 700;
+      letter-spacing: 0.18px;
+      font-size: 6.75px;
+    }
+    .typical-value {
+      font-weight: 700;
+      color: #0b1526;
+      text-align: right;
+      min-width: 0;
+      font-size: 7.25px;
+    }
+    .typical-value-li-low {
+      color: #c26b1a;
+    }
+    .typical-value-li-medium {
+      color: #b45309;
+    }
+    .typical-value-li-high {
+      color: #9a3412;
+    }
+
+    .date-header-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      line-height: 1.05;
+    }
+    .date-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+    .date-header-date {
+      font-size: 7.3px;
+      font-weight: 800;
+      letter-spacing: 0.12px;
+    }
+    .date-header-day {
+      font-size: 6.45px;
+      font-weight: 600;
+      color: #dbe7ff;
+      letter-spacing: 0.18px;
+    }
+    .date-header-matchup {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .date-header-matchup-prefix {
+      font-size: 6.1px;
+      font-weight: 700;
+      color: #dbe7ff;
+      letter-spacing: 0.16px;
+    }
+    .opp-logo {
+      width: 10px;
+      height: 10px;
+      object-fit: contain;
+    }
+
+    .day-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-height: 39px;
+      width: 100%;
+      padding: 5px 4px;
+      border: 1px solid #d5dbe3;
+      box-sizing: border-box;
+      background: #f8fafc;
+      text-align: center;
+    }
+    .monitoring-table tbody[data-density="compact"] .day-block {
+      min-height: 35px;
+      padding: 4px 3px;
+      gap: 2px;
+    }
+    .monitoring-table tbody[data-density="ultra"] .day-block {
+      min-height: 31px;
+      padding: 3px 2px;
+      gap: 1px;
+    }
+    .day-block-text-top {
+      display: block;
+      max-width: 100%;
+      font-size: 7.05px;
+      font-weight: 800;
+      line-height: 1.05;
+      color: #13243b;
+      letter-spacing: 0.01px;
+      white-space: normal;
+    }
+    .day-block-text-bottom {
+      display: block;
+      max-width: 100%;
+      font-size: 6.2px;
+      font-weight: 700;
+      line-height: 1;
+      color: #334155;
+      letter-spacing: 0.02px;
+      white-space: normal;
+    }
+    .monitoring-table tbody[data-density="compact"] .day-block-text-top {
+      font-size: 6.65px;
+    }
+    .monitoring-table tbody[data-density="compact"] .day-block-text-bottom {
+      font-size: 5.9px;
+    }
+    .monitoring-table tbody[data-density="ultra"] .day-block-text-top {
+      font-size: 6.15px;
+    }
+    .monitoring-table tbody[data-density="ultra"] .day-block-text-bottom {
+      font-size: 5.55px;
+    }
+    .day-block-neutral {
+      background: #f8fafc;
+      border-color: #d5dbe3;
+    }
+    .day-block-heat-1 {
+      background: #fef3f2;
+      border-color: #f5d4cf;
+    }
+    .day-block-heat-2 {
+      background: #fde5df;
+      border-color: #f2c0b5;
+    }
+    .day-block-heat-3 {
+      background: #fdcfc5;
+      border-color: #efac9d;
+    }
+    .day-block-heat-4 {
+      background: #f9b2a4;
+      border-color: #eb8e7f;
+    }
+    .day-block-heat-5 {
+      background: #f78a7f;
+      border-color: #e6685d;
+    }
+    .monitoring-table td.col-selected .day-block {
+      box-shadow: inset 0 0 0 1.5px #2563eb;
+    }
+
+    .rail-cell {
+      padding: 0 !important;
+      background: #edf2f7 !important;
+    }
+    .flags-rail-cell {
+      border-left: 2px solid #0f172a;
+    }
+    .trend-rail-cell {
+      background: #e8eef6 !important;
+    }
+    .monitoring-table tbody tr:nth-child(even) td.rail-cell {
+      background: #e7edf5 !important;
+    }
+    .rail-panel {
+      min-height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 5px;
+    }
+    .monitoring-table tbody[data-density="compact"] .rail-panel {
+      min-height: 35px;
+      padding: 3px 4px;
+    }
+    .monitoring-table tbody[data-density="ultra"] .rail-panel {
+      min-height: 31px;
+      padding: 2px 3px;
+    }
+    .rail-panel-trend .sparkline-wrap {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    .flag-stack {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5px;
+      min-height: 12px;
+    }
+    .flag-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      min-height: 12px;
+      box-sizing: border-box;
+      padding: 0 8px;
+      font-size: 6.45px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.03px;
+      border: 1px solid transparent;
+    }
+    .flag-b2b { background: #fff8e4; color: #78350f; border-color: #f0e1bc; }
+    .flag-3of5 { background: #fff3e5; color: #8a3412; border-color: #f1dfc7; }
+    .flag-popop { background: #eef4ff; color: #1e40af; border-color: #d7e2f8; }
+    .flag-rel { background: #fff6e5; color: #8a3412; border-color: #f1e1c1; }
+    .flag-lev { background: #eef2ff; color: #3730a3; border-color: #dde2fd; }
+    .flag-hw { background: #fdf0f3; color: #9f1239; border-color: #f3d5de; }
+    .flag-hs { background: #fbf0f7; color: #a61b5b; border-color: #eed9e4; }
+    .flag-empty,
+    .empty-cell {
+      color: #b8c5d6;
+      font-weight: 600;
+    }
+
+    .trend-cell {
+      padding: 2px 5px;
+    }
+    .sparkline-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .monitoring-legend {
+      margin-top: 4px;
+      text-align: left;
+    }
+    .monitoring-legend-text {
+      display: inline-block;
+      font-size: 6.25px;
+      line-height: 1.2;
+      color: #526175;
+      letter-spacing: 0.03px;
+    }
+
+    .recent-usage-section {
+      margin-top: 10px;
+    }
+    .recent-usage-title {
+      padding: 5px 8px;
+      border: 1px solid #002D72;
+      border-bottom: 0;
+      background: #002D72;
+      color: #ffffff;
+      font-size: 10.3px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
+    .recent-usage-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: 1px solid #111827;
+      font-variant-numeric: tabular-nums;
+      background: #ffffff;
+    }
+    .recent-usage-table th {
+      padding: 5px 3px;
+      border-right: 1px solid #33538a;
+      border-bottom: 2px solid #FF5910;
+      background: #002D72;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .recent-usage-table th:last-child,
+    .recent-usage-table td:last-child {
+      border-right: 0;
+    }
+    .recent-usage-row td {
+      border-right: 1px solid #cbd5e1;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 4px 5px;
+      vertical-align: middle;
+      background: #ffffff;
+    }
+    .recent-usage-row-starter td {
+      border-bottom: 2px solid #FF5910;
+    }
+    .recent-usage-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .recent-usage-name-cell {
+      font-size: 8.1px;
+      font-weight: 700;
+      line-height: 1.1;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .recent-usage-name-left { color: #dc2626; }
+    .recent-usage-name-right { color: #0b1526; }
+    .recent-usage-name-switch { color: #FF5910; }
+    .recent-usage-name-starter { font-style: italic; }
+    .recent-usage-name-empty { color: transparent; }
+    .recent-usage-context-cell {
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+    .recent-usage-context-top {
+      min-height: 10px;
+      font-size: 6.9px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #0b1526;
+      white-space: nowrap;
+    }
+    .recent-usage-context-bottom {
+      min-height: 9px;
+      margin-top: 1px;
+      font-size: 6.2px;
+      line-height: 1.1;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .recent-usage-context-high { background: #fdba74 !important; }
+    .recent-usage-context-medium { background: #fed7aa !important; }
+    .recent-usage-context-low { background: #ffedd5 !important; }
+    .recent-usage-context-neutral { background: #f8fafc !important; }
+    .recent-usage-context-starter,
+    .recent-usage-context-empty {
+      background: #ffffff !important;
+    }
+  
+  </style>
+</head>
+<body>
+
+    <!-- pitcher-monitoring-template:2026-03-21-solid-day-block-theme -->
+    <section class="page report-page " data-role="">
+      <div class="report-header">
+        <div class="report-header-left">
+          <img class="report-logo" src="https://upload.wikimedia.org/wikipedia/en/7/7b/New_York_Mets.svg" alt="Mets" />
+          <div>
+            <div class="report-title">Relief Pitcher</div>
+            
+    <div class="report-subtitle">
+      <span class="report-date">Mar 15, 2026</span>
+      <span class="filter-label">P · G+GB</span>
+    </div>
+  
+          </div>
+        </div>
+        <div class="report-meta">
+          <span class="report-count">3</span>
+          <span class="report-count-label">Pitchers</span>
+          <span class="report-generated">Generated Mar 15, 2026, 9:05 PM ET</span>
+        </div>
+      </div>
+
+      <table class="monitoring-table">
+        <thead>
+          
+      <tr class="group-row">
+        <th class="fixed-col" rowspan="2" style="width:120px">Pitcher</th>
+        <th class="fixed-col align-center" rowspan="2" style="width:50px">Typical</th>
+        <th class="fixed-col align-center" rowspan="2" style="width:40px">Rest</th>
+        <th class="fixed-col align-center" rowspan="2" style="width:54px">Load</th>
+        <th colspan="2">Past 2</th>
+        <th class="group-current" colspan="1">Today</th>
+        <th class="group-future" colspan="1">Planned 1</th>
+        <th class="align-center" rowspan="2" style="width:60px">Flags</th>
+        <th class="align-center" rowspan="2" style="width:130px">Trend</th>
+      </tr>
+      <tr class="main-row">
+        
+    <th class="">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/13</span>
+          
+        <span class="date-header-matchup-prefix">vs</span>
+        <img class="opp-logo" src="https://example.com/mia.svg" alt="" />
+      
+        </div>
+        <span class="date-header-day">Fri</span>
+      </div>
+    </th>
+  
+    <th class="">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/14</span>
+          
+        <span class="date-header-matchup-prefix">@ STL</span>
+      
+        </div>
+        <span class="date-header-day">Sat</span>
+      </div>
+    </th>
+  
+    <th class="col-selected">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/15</span>
+          
+        </div>
+        <span class="date-header-day">Sun</span>
+      </div>
+    </th>
+  
+    <th class="col-future col-boundary">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/16</span>
+          
+        </div>
+        <span class="date-header-day">Mon</span>
+      </div>
+    </th>
+  
+      </tr>
+    
+        </thead>
+        <tbody data-density="normal">
+          
+      <tr>
+        <td class="text-left">
+          <div class="pitcher-cell">
+            <div class="pitcher-name pitcher-name-left">Peterson, David</div>
+          </div>
+        </td>
+        <td class="text-left">
+    <div class="typical-cell">
+      <div class="typical-row"><span class="typical-label">P</span><span class="typical-value">19</span></div><div class="typical-row"><span class="typical-label">IP</span><span class="typical-value">1.1</span></div><div class="typical-row"><span class="typical-label">R</span><span class="typical-value">4.0</span></div><div class="typical-row"><span class="typical-label">L</span><span class="typical-value typical-value-li-high">High</span></div>
+    </div>
+  </td>
+        <td><span class="rest-pill rest-red"><span class="pill-text">0</span></span></td>
+        <td class="text-left">
+    <div class="wl-cell">
+      <div class="wl-row"><span class="wl-label">7d:</span><span class="wl-value">12</span></div>
+      <div class="wl-row"><span class="wl-label">28d:</span><span class="wl-value">10</span></div>
+      <div class="wl-row"><span class="wl-label">ACR:</span><span class="wl-value">1.2</span></div>
+      <div class="wl-row"><span class="wl-label">5d:</span><span class="wl-value">2/5</span></div>
+    </div>
+  </td>
+        <td class="day-cell">
+    <div class="day-block day-block-heat-1" data-wl="4">
+      <span class="day-block-text-top">16 PIT | 1.0 IP</span>
+      <span class="day-block-text-bottom">Up 1x</span>
+    </div>
+  </td><td class="day-cell">
+    <div class="day-block day-block-heat-4" data-wl="16">
+      <span class="day-block-text-top">23 PIT</span>
+      <span class="day-block-text-bottom">W 8</span>
+    </div>
+  </td><td class="col-selected day-cell">
+    <div class="day-block day-block-heat-2" data-wl="6">
+      <span class="day-block-text-top">10 PIT | 1.0 IP</span>
+      <span class="day-block-text-bottom">Up 1x</span>
+    </div>
+  </td><td class="col-future col-boundary day-cell">
+    <div class="day-block day-block-heat-1" data-wl="2">
+      <span class="day-block-text-top">18 PIT</span>
+      <span class="day-block-text-bottom">S</span>
+    </div>
+  </td>
+        <td class="rail-cell flags-rail-cell"><div class="rail-panel rail-panel-flags"><div class="flag-stack"><span class="flag-badge flag-b2b"><span class="pill-text">B2B</span></span><span class="flag-badge flag-rel"><span class="pill-text">VELO</span></span><span class="flag-badge flag-lev"><span class="pill-text">LEV</span></span><span class="flag-badge flag-hw"><span class="pill-text">HW</span></span><span class="flag-badge flag-hs"><span class="pill-text">HS</span></span></div></div></td>
+        <td class="rail-cell trend-rail-cell">
+    <div class="rail-panel rail-panel-trend">
+      <div class="sparkline-wrap"><svg width="122" height="34" viewBox="0 0 122 34" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="31" x2="119" y2="31" stroke="#D5DFEB" stroke-width="1"/><rect x="21.08" y="28.23" width="2.50" height="2.77" rx="1.00" fill="#AEBFD6" opacity="0.92"/><rect x="98.42" y="27.00" width="2.50" height="4.00" rx="1.00" fill="#AEBFD6" opacity="0.92"/><polygon points="22.33,16.02 61.00,10.98 61.00,18.89 22.33,22.48" fill="#2563EB" opacity="0.14"/><polygon points="61.00,10.98 99.67,4.52 99.67,13.86 61.00,18.89" fill="#2563EB" opacity="0.14"/><path d="M 22.33 22.48 L 61.00 18.89 L 99.67 13.86" fill="none" stroke="#1E293B" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M 22.33 16.02 L 61.00 10.98 L 99.67 4.52" fill="none" stroke="#2563EB" stroke-opacity="0.88" stroke-width="1.55" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="99.67" cy="13.86" r="2.45" fill="#BE123C" stroke="#F8FAFC" stroke-width="0.8"/></svg></div>
+    </div>
+  </td>
+      </tr>
+    
+      <tr>
+        <td class="text-left">
+          <div class="pitcher-cell">
+            <div class="pitcher-name">Butto, Jose</div>
+          </div>
+        </td>
+        <td class="text-left">
+    <div class="typical-cell">
+      <div class="typical-row"><span class="typical-label">P</span><span class="typical-value">17</span></div><div class="typical-row"><span class="typical-label">IP</span><span class="typical-value">1.0</span></div><div class="typical-row"><span class="typical-label">R</span><span class="typical-value">2.0</span></div><div class="typical-row"><span class="typical-label">L</span><span class="typical-value typical-value-li-medium">Med</span></div>
+    </div>
+  </td>
+        <td><span class="rest-pill rest-green"><span class="pill-text">2</span></span></td>
+        <td class="text-left">
+    <div class="wl-cell">
+      <div class="wl-row"><span class="wl-label">7d:</span><span class="wl-value">8</span></div>
+      <div class="wl-row"><span class="wl-label">28d:</span><span class="wl-value">7</span></div>
+      <div class="wl-row"><span class="wl-label">ACR:</span><span class="wl-value">1.1</span></div>
+      <div class="wl-row"><span class="wl-label">5d:</span><span class="wl-value">1/5</span></div>
+    </div>
+  </td>
+        <td class="day-cell">
+    <div class="day-block day-block-heat-5" data-wl="24">
+      <span class="day-block-text-top">21 PIT | 2.1 IP</span>
+      <span class="day-block-text-bottom">GB</span>
+    </div>
+  </td><td class="day-cell">
+    <div class="day-block day-block-heat-3" data-wl="11">
+      <span class="day-block-text-top">22 PIT | 1.0 IP</span>
+      <span class="day-block-text-bottom">G</span>
+    </div>
+  </td><td class="col-selected day-cell">
+    <div class="day-block day-block-neutral" data-wl="">
+      <span class="day-block-text-top">18 PIT</span>
+      <span class="day-block-text-bottom">CP</span>
+    </div>
+  </td><td class="col-future col-boundary day-cell"><span class="empty-cell">—</span></td>
+        <td class="rail-cell flags-rail-cell"><div class="rail-panel rail-panel-flags"><div class="flag-stack"><span class="flag-empty">—</span></div></div></td>
+        <td class="rail-cell trend-rail-cell">
+    <div class="rail-panel rail-panel-trend">
+      <div class="sparkline-wrap"><svg width="122" height="34" viewBox="0 0 122 34" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="31" x2="119" y2="31" stroke="#D5DFEB" stroke-width="1"/><path d="M 61.00 22.71" fill="none" stroke="#1E293B" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M 61.00 10.29" fill="none" stroke="#2563EB" stroke-opacity="0.88" stroke-width="1.55" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="61.00" cy="22.71" r="2.45" fill="#64748B" stroke="#F8FAFC" stroke-width="0.8"/></svg></div>
+    </div>
+  </td>
+      </tr>
+    
+      <tr>
+        <td class="text-left">
+          <div class="pitcher-cell">
+            <div class="pitcher-name pitcher-name-left">Young, Alex</div>
+          </div>
+        </td>
+        <td class="text-left">
+    <div class="typical-cell">
+      <div class="typical-row"><span class="typical-label">P</span><span class="typical-value">16</span></div><div class="typical-row"><span class="typical-label">IP</span><span class="typical-value">0.2</span></div><div class="typical-row"><span class="typical-label">R</span><span class="typical-value">3.0</span></div><div class="typical-row"><span class="typical-label">L</span><span class="typical-value typical-value-li-low">Low</span></div>
+    </div>
+  </td>
+        <td><span class="rest-pill rest-green"><span class="pill-text">3</span></span></td>
+        <td class="text-left">
+    <div class="wl-cell">
+      <div class="wl-row"><span class="wl-label">7d:</span><span class="wl-value">7</span></div>
+      <div class="wl-row"><span class="wl-label">28d:</span><span class="wl-value">6</span></div>
+      <div class="wl-row"><span class="wl-label">ACR:</span><span class="wl-value">1.1</span></div>
+      <div class="wl-row"><span class="wl-label">5d:</span><span class="wl-value">1/5</span></div>
+    </div>
+  </td>
+        <td class="day-cell">
+    <div class="day-block day-block-heat-1" data-wl="1">
+      <span class="day-block-text-top">9 PIT</span>
+      <span class="day-block-text-bottom">W 9</span>
+    </div>
+  </td><td class="day-cell">
+    <div class="day-block day-block-heat-2" data-wl="9">
+      <span class="day-block-text-top">19 PIT | 2.0 IP</span>
+      <span class="day-block-text-bottom">S</span>
+    </div>
+  </td><td class="col-selected day-cell"><span class="empty-cell">—</span></td><td class="col-future col-boundary day-cell">
+    <div class="day-block day-block-heat-2" data-wl="7">
+      <span class="day-block-text-top">14 PIT</span>
+      <span class="day-block-text-bottom">L</span>
+    </div>
+  </td>
+        <td class="rail-cell flags-rail-cell"><div class="rail-panel rail-panel-flags"><div class="flag-stack"><span class="flag-empty">—</span></div></div></td>
+        <td class="rail-cell trend-rail-cell">
+    <div class="rail-panel rail-panel-trend">
+      <div class="sparkline-wrap"><svg width="122" height="34" viewBox="0 0 122 34" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="31" x2="119" y2="31" stroke="#D5DFEB" stroke-width="1"/><path d="M 61.00 21.33" fill="none" stroke="#1E293B" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M 61.00 11.67" fill="none" stroke="#2563EB" stroke-opacity="0.88" stroke-width="1.55" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="61.00" cy="21.33" r="2.45" fill="#64748B" stroke="#F8FAFC" stroke-width="0.8"/></svg></div>
+    </div>
+  </td>
+      </tr>
+    
+        </tbody>
+      </table>
+
+      
+    <div class="monitoring-legend">
+      <span class="monitoring-legend-text">
+        <em>P = Pitches, IP = Innings, R = Rest, L = Leverage, 7d = 7d Rolling Game Average, 28d = 28d Rolling Average, ACR = Acute:Chronic Pitching Workload Ratio, HS = High Stress Outing, HWL = High Workload, Lev = Leverage, Velo = FB Velocity</em>
+      </span>
+    </div>
+  
+      
+    </section>
+  
+</body>
+</html>

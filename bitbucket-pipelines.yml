@@ -1,0 +1,27 @@
+image: google/cloud-sdk:latest
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Deploy to Cloud Run
+          deployment: production
+          script:
+            - echo $GCP_SA_KEY | base64 --decode > ${BITBUCKET_CLONE_DIR}/gcp-key.json
+            - gcloud auth activate-service-account --key-file=${BITBUCKET_CLONE_DIR}/gcp-key.json
+            - gcloud config set project mets-d-cc036-performance-tech
+            - |
+              gcloud run deploy cf-pwl-pdf \
+              --source . \
+              --region us-east4 \
+              --memory 2Gi \
+              --cpu 2 \
+              --timeout 300 \
+              --concurrency 5 \
+              --min-instances 0 \
+              --max-instances 10 \
+              --allow-unauthenticated \
+              --service-account mets-d-cc036-performance-tech@appspot.gserviceaccount.com \
+              --ingress all \
+              --port 8080 \
+              --verbosity=debug

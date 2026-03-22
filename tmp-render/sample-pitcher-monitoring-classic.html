@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <style>
+    
+    
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-400.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-600.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-700.ttf") format("truetype");
+    }
+  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      background: #ffffff;
+    }
+    body {
+      font-family: "Source Sans 3 PDF", "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      color: #0b1526;
+      background: #ffffff;
+      font-size: 11.35px;
+      line-height: 1.38;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      text-rendering: geometricPrecision;
+      font-synthesis-weight: none;
+    }
+    .page {
+      width: 100%;
+      padding: 12px 16px;
+    }
+
+    /* Header */
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #002D72;
+      padding-bottom: 9px;
+      margin-bottom: 10px;
+    }
+    .report-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .report-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #002D72;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .report-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .report-meta {
+      text-align: right;
+      font-size: 10px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    /* Summary cards row */
+    .summary-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .summary-card {
+      flex: 1;
+      background: #f5f8fc;
+      border: 1px solid #d6dee9;
+      border-radius: 8px;
+      padding: 8px 10px 7px;
+      text-align: center;
+    }
+    .summary-card-label {
+      font-size: 9.2px;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.35px;
+      margin-bottom: 2px;
+    }
+    .summary-card-value {
+      font-size: 18.5px;
+      font-weight: 800;
+      color: #002D72;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Section headers */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #002D72;
+      text-transform: uppercase;
+      letter-spacing: 0.32px;
+      margin-bottom: 7px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #cdd7e5;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.25px;
+      font-variant-numeric: tabular-nums;
+    }
+    .data-table th {
+      background: #002D72;
+      color: #ffffff;
+      padding: 6px 8px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.24px;
+      white-space: nowrap;
+      border: 1px solid #1e3a8a;
+    }
+    .data-table td {
+      padding: 5px 8px;
+      text-align: center;
+      border: 1px solid #bcc8d8;
+      white-space: nowrap;
+    }
+    .data-table tbody tr:nth-child(even) {
+      background: #f4f7fb;
+    }
+    .data-table td.text-left {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    /* Two-column layout */
+    .two-col {
+       display: flex;
+       gap: 16px;
+       margin-bottom: 12px;
+     }
+    .two-col > * {
+      flex: 1;
+    }
+
+    /* Three-column layout */
+    .three-col {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    /* Chart containers */
+     .chart-container {
+       border: 1px solid #d6dee9;
+       border-radius: 8px;
+       padding: 10px 11px;
+       background: #fbfcfe;
+     }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #cdd7e5;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 8px;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: 0.15px;
+    }
+
+    /* Pitch type color dot */
+    .pitch-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 6px;
+      font-size: 9.2px;
+      color: #475569;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+  
+    
+    @page { size: letter landscape; margin: 5.5mm 6mm; }
+
+    .report-page {
+      width: 100%;
+      padding: 8px 10px 7px;
+    }
+    .report-page-break {
+      break-after: page;
+      page-break-after: always;
+    }
+
+    .report-header {
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom-width: 2px;
+      gap: 14px;
+    }
+    .report-header-left {
+      gap: 10px;
+      min-width: 0;
+    }
+    .report-logo {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+    .report-title {
+      font-size: 17.2px;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    .report-subtitle {
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      font-size: 10.4px;
+      line-height: 1.16;
+    }
+    .report-date {
+      color: #475569;
+      font-weight: 700;
+    }
+    .report-meta {
+      min-width: 66px;
+      padding-left: 10px;
+      border-left: 1px solid #cfd8e4;
+      font-size: 8.6px;
+      line-height: 1.2;
+    }
+    .report-count {
+      display: block;
+      font-size: 17px;
+      font-weight: 800;
+      color: #002D72;
+      line-height: 1;
+    }
+    .report-count-label {
+      display: block;
+      margin-top: 2px;
+      font-size: 7.2px;
+      text-transform: uppercase;
+      letter-spacing: 0.42px;
+      color: #475569;
+    }
+    .report-generated {
+      display: block;
+      margin-top: 5px;
+      font-size: 7.6px;
+      font-weight: 600;
+      line-height: 1.22;
+      color: #475569;
+    }
+    .filter-label {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 1px 8px;
+      font-size: 7.2px;
+      font-weight: 700;
+      color: #002D72;
+      background: #e6eef9;
+      border: 1px solid #bed0e6;
+      letter-spacing: 0.28px;
+      text-transform: uppercase;
+    }
+
+    .monitoring-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid #cad5e3;
+      border-radius: 9px;
+      overflow: hidden;
+      font-variant-numeric: tabular-nums;
+      background: #ffffff;
+    }
+    .monitoring-table thead th {
+      background: #eef3f9;
+      color: #334155;
+      border-right: 1px solid #d2dbe8;
+      border-bottom: 1px solid #d2dbe8;
+      padding: 4px 3px;
+      font-size: 7.6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.28px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .monitoring-table thead th.fixed-col {
+      text-align: left;
+    }
+    .monitoring-table thead th.align-center {
+      text-align: center;
+    }
+    .monitoring-table .group-row th {
+      background: #f3f6fb;
+      color: #526175;
+      font-size: 6.95px;
+      padding: 4px 3px 3px;
+    }
+    .monitoring-table .group-row th.group-current {
+      color: #1d4ed8;
+      background: #e8f1fe;
+    }
+    .monitoring-table .group-row th.group-future {
+      background: #f9fafb;
+    }
+    .monitoring-table .main-row th.col-selected {
+      background: #e8f1fe;
+      color: #1d4ed8;
+      box-shadow: inset 2px 0 0 #3b82f6;
+    }
+    .monitoring-table .main-row th.col-future {
+      background: #fafafa;
+    }
+    .monitoring-table .main-row th.col-boundary,
+    .monitoring-table td.col-boundary {
+      border-left: 2px solid #c1cede;
+    }
+    .monitoring-table th:last-child,
+    .monitoring-table td:last-child {
+      border-right: 0;
+    }
+    .monitoring-table td {
+      padding: 3px 4px;
+      border-right: 1px solid #d8e0eb;
+      border-bottom: 1px solid #dee5ef;
+      font-size: 7.6px;
+      color: #0b1526;
+      text-align: center;
+      vertical-align: middle;
+      background: #ffffff;
+      white-space: nowrap;
+    }
+    .monitoring-table tbody tr:nth-child(even) td {
+      background: #f9fbfe;
+    }
+    .monitoring-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .monitoring-table td.col-selected {
+      background: #f3f8ff !important;
+      box-shadow: inset 2px 0 0 #3b82f6;
+    }
+    .monitoring-table td.col-future {
+      background: #fbfcfd !important;
+    }
+    .monitoring-table td.text-left {
+      text-align: left;
+    }
+    .monitoring-table tbody[data-density="compact"] td {
+      padding: 2.5px 3px;
+      font-size: 7.1px;
+    }
+    .monitoring-table tbody[data-density="ultra"] td {
+      padding: 2px 2px;
+      font-size: 6.5px;
+    }
+
+    .pitcher-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      min-width: 0;
+    }
+    .pitcher-name {
+      font-size: 9.1px;
+      font-weight: 700;
+      line-height: 1.16;
+      color: #0b1526;
+      white-space: normal;
+    }
+    .pitcher-name-left {
+      color: #b91c1c;
+    }
+    .monitoring-table tbody[data-density="compact"] .pitcher-name {
+      font-size: 8.35px;
+    }
+    .monitoring-table tbody[data-density="ultra"] .pitcher-name {
+      font-size: 7.55px;
+    }
+
+    .rest-pill {
+      display: inline-grid;
+      place-items: center;
+      min-width: 26px;
+      height: 13px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      padding: 0 8px;
+      font-size: 7.05px;
+      font-weight: 800;
+      line-height: 1;
+      text-align: center;
+      letter-spacing: 0.03px;
+      font-variant-numeric: tabular-nums;
+    }
+    .pill-text {
+      display: block;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      position: relative;
+      top: -0.15px;
+    }
+    .rest-red { background: #fdf0f3; color: #9f1239; border: 1px solid #efc0cb; }
+    .rest-amber { background: #fff7e3; color: #92400e; border: 1px solid #efd39d; }
+    .rest-green { background: #eef8f1; color: #166534; border: 1px solid #bfdcc9; }
+
+    .wl-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      width: 100%;
+      line-height: 1.08;
+    }
+    .wl-row {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      align-items: center;
+      column-gap: 5px;
+      width: 100%;
+    }
+    .wl-label {
+      color: #475569;
+      font-weight: 700;
+      font-size: 6.45px;
+      letter-spacing: 0.08px;
+    }
+    .wl-value {
+      font-weight: 700;
+      color: #0b1526;
+      font-size: 6.95px;
+      text-align: right;
+    }
+    .typical-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      width: 100%;
+      line-height: 1.06;
+    }
+    .typical-row {
+      display: grid;
+      grid-template-columns: 13px minmax(0, 1fr);
+      align-items: center;
+      column-gap: 5px;
+      width: 100%;
+    }
+    .typical-label {
+      color: #475569;
+      font-weight: 700;
+      letter-spacing: 0.18px;
+      font-size: 6.65px;
+    }
+    .typical-value {
+      font-weight: 700;
+      color: #0b1526;
+      text-align: right;
+      min-width: 0;
+      font-size: 7.2px;
+    }
+    .typical-value-li-low {
+      color: #c26b1a;
+    }
+    .typical-value-li-medium {
+      color: #b45309;
+    }
+    .typical-value-li-high {
+      color: #9a3412;
+    }
+
+    .date-header-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      line-height: 1.05;
+    }
+    .date-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+    .date-header-date {
+      font-size: 7.55px;
+      font-weight: 800;
+      letter-spacing: 0.15px;
+    }
+    .date-header-day {
+      font-size: 6.8px;
+      font-weight: 600;
+      color: #526175;
+      letter-spacing: 0.22px;
+    }
+    .date-header-matchup {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .date-header-matchup-prefix {
+      font-size: 6.25px;
+      font-weight: 700;
+      color: #526175;
+      letter-spacing: 0.2px;
+    }
+    .opp-logo {
+      width: 10px;
+      height: 10px;
+      object-fit: contain;
+    }
+
+    .activity-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      min-height: 15px;
+    }
+    .activity-cell {
+      display: inline-grid;
+      place-items: center;
+      align-self: center;
+      width: fit-content;
+      max-width: calc(100% - 2px);
+      min-width: 24px;
+      height: 15px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      padding: 0 8px;
+      font-size: 6.3px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.01px;
+      border: 1px solid transparent;
+      font-variant-numeric: tabular-nums;
+      overflow: hidden;
+    }
+    .activity-cell .pill-text {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      max-width: 100%;
+      flex: 0 0 auto;
+      gap: 2px;
+      position: static;
+      top: auto;
+      transform: none;
+      white-space: nowrap;
+      text-align: center;
+    }
+    .activity-cell .pill-prefix {
+      flex: 0 0 auto;
+      font-weight: 800;
+      letter-spacing: 0.05px;
+    }
+    .activity-cell .pill-detail {
+      flex: 0 0 auto;
+      font-weight: 700;
+      opacity: 0.96;
+      letter-spacing: 0;
+    }
+    .activity-game,
+    .activity-gb {
+      padding-left: 6px;
+      padding-right: 6px;
+      font-size: 6.15px;
+    }
+    .activity-game { background: #fdf0f3; border-color: #efc0cb; color: #8f1232; }
+    .activity-live { background: #fdf2f6; border-color: #f0c8d5; color: #9f1239; }
+    .activity-side { background: #fff6ea; border-color: #efd6b0; color: #9a3412; }
+    .activity-tf { background: #fff7df; border-color: #ecd39c; color: #8a4b06; }
+    .activity-gb { background: #fceff3; border-color: #e8c0cd; color: #8f1d4f; }
+    .activity-cp { background: #eef4ff; border-color: #c4d5f3; color: #1d4ed8; }
+    .activity-warmup { background: #f4f7fb; border-color: #d2dbe6; color: #334155; }
+
+    .flag-stack {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5px;
+      min-height: 13px;
+    }
+    .flag-badge {
+      display: inline-grid;
+      place-items: center;
+      border-radius: 6px;
+      min-width: 30px;
+      min-height: 13px;
+      box-sizing: border-box;
+      padding: 1px 8px;
+      font-size: 6.35px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.03px;
+      border: 1px solid transparent;
+    }
+    .flag-b2b { background: #fff8e4; color: #78350f; border-color: #ecd39c; }
+    .flag-3of5 { background: #fff3e5; color: #9a3412; border-color: #eed0ad; }
+    .flag-popop { background: #eef4ff; color: #1d4ed8; border-color: #c4d5f3; }
+    .flag-rel { background: #fff6e5; color: #9a3412; border-color: #eed0ad; }
+    .flag-lev { background: #eef2ff; color: #3730a3; border-color: #c7d2fe; }
+    .flag-hw { background: #fdf0f3; color: #9f1239; border-color: #efc0cb; }
+    .flag-hs { background: #fbf0f7; color: #be185d; border-color: #e7c3d7; }
+    .flag-empty,
+    .empty-cell {
+      color: #b8c5d6;
+      font-weight: 600;
+    }
+
+    .trend-cell {
+      padding: 2px 5px;
+    }
+    .sparkline-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .monitoring-legend {
+      margin-top: 4px;
+      text-align: left;
+    }
+    .monitoring-legend-text {
+      display: inline-block;
+      font-size: 6.15px;
+      line-height: 1.2;
+      color: #64748b;
+      letter-spacing: 0.03px;
+    }
+
+    .recent-usage-section {
+      margin-top: 10px;
+    }
+    .recent-usage-title {
+      padding: 5px 8px;
+      border: 1px solid #002D72;
+      border-bottom: 0;
+      background: #002D72;
+      color: #ffffff;
+      font-size: 10.3px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
+    .recent-usage-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: 1px solid #111827;
+      font-variant-numeric: tabular-nums;
+      background: #ffffff;
+    }
+    .recent-usage-table th {
+      padding: 5px 3px;
+      border-right: 1px solid #33538a;
+      border-bottom: 2px solid #FF5910;
+      background: #002D72;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .recent-usage-table th:last-child,
+    .recent-usage-table td:last-child {
+      border-right: 0;
+    }
+    .recent-usage-row td {
+      border-right: 1px solid #cbd5e1;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 4px 5px;
+      vertical-align: middle;
+      background: #ffffff;
+    }
+    .recent-usage-row-starter td {
+      border-bottom: 2px solid #FF5910;
+    }
+    .recent-usage-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .recent-usage-name-cell {
+      font-size: 8.1px;
+      font-weight: 700;
+      line-height: 1.1;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .recent-usage-name-left { color: #dc2626; }
+    .recent-usage-name-right { color: #0b1526; }
+    .recent-usage-name-switch { color: #FF5910; }
+    .recent-usage-name-starter { font-style: italic; }
+    .recent-usage-name-empty { color: transparent; }
+    .recent-usage-context-cell {
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+    .recent-usage-context-top {
+      min-height: 10px;
+      font-size: 6.9px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #0b1526;
+      white-space: nowrap;
+    }
+    .recent-usage-context-bottom {
+      min-height: 9px;
+      margin-top: 1px;
+      font-size: 6.2px;
+      line-height: 1.1;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .recent-usage-context-high { background: #fdba74 !important; }
+    .recent-usage-context-medium { background: #fed7aa !important; }
+    .recent-usage-context-low { background: #ffedd5 !important; }
+    .recent-usage-context-neutral { background: #f8fafc !important; }
+    .recent-usage-context-starter,
+    .recent-usage-context-empty {
+      background: #ffffff !important;
+    }
+  
+  </style>
+</head>
+<body>
+
+    <!-- pitcher-monitoring-template:2026-03-20-activity-text-centered -->
+    <section class="page report-page " data-role="">
+      <div class="report-header">
+        <div class="report-header-left">
+          <img class="report-logo" src="https://upload.wikimedia.org/wikipedia/en/7/7b/New_York_Mets.svg" alt="Mets" />
+          <div>
+            <div class="report-title">Relief Pitcher</div>
+            
+    <div class="report-subtitle">
+      <span class="report-date">Mar 15, 2026</span>
+      <span class="filter-label">PG+GB</span><span class="filter-label">40MAN</span>
+    </div>
+  
+          </div>
+        </div>
+        <div class="report-meta">
+          <span class="report-count">2</span>
+          <span class="report-count-label">Pitchers</span>
+          <span class="report-generated">Generated Mar 21, 2026, 12:10 PM ET</span>
+        </div>
+      </div>
+
+      <table class="monitoring-table">
+        <thead>
+          
+      <tr class="group-row">
+        <th class="fixed-col" rowspan="2" style="width:120px">Pitcher</th>
+        <th class="fixed-col align-center" rowspan="2" style="width:50px">Typical</th>
+        <th class="fixed-col align-center" rowspan="2" style="width:40px">Rest</th>
+        <th class="fixed-col align-center" rowspan="2" style="width:54px">Load</th>
+        <th colspan="2">Past 2</th>
+        <th class="group-current" colspan="1">Today</th>
+        <th class="group-future" colspan="1">Planned 1</th>
+        <th class="align-center" rowspan="2" style="width:60px">Flags</th>
+        <th class="align-center" rowspan="2" style="width:130px">Trend</th>
+      </tr>
+      <tr class="main-row">
+        
+    <th class="">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/13</span>
+          
+        </div>
+        <span class="date-header-day">Fri</span>
+      </div>
+    </th>
+  
+    <th class="">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/14</span>
+          
+        </div>
+        <span class="date-header-day">Sat</span>
+      </div>
+    </th>
+  
+    <th class="col-selected">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/15</span>
+          
+        </div>
+        <span class="date-header-day">Sun</span>
+      </div>
+    </th>
+  
+    <th class="col-future col-boundary">
+      <div class="date-header-wrap">
+        <div class="date-header-top">
+          <span class="date-header-date">3/16</span>
+          
+        </div>
+        <span class="date-header-day">Mon</span>
+      </div>
+    </th>
+  
+      </tr>
+    
+        </thead>
+        <tbody data-density="normal">
+          
+      <tr>
+        <td class="text-left">
+          <div class="pitcher-cell">
+            <div class="pitcher-name pitcher-name-left">Peterson, David</div>
+          </div>
+        </td>
+        <td class="text-left">
+    <div class="typical-cell">
+      <div class="typical-row"><span class="typical-label">P</span><span class="typical-value">19</span></div><div class="typical-row"><span class="typical-label">IP</span><span class="typical-value">1.0</span></div><div class="typical-row"><span class="typical-label">R</span><span class="typical-value">4.0</span></div><div class="typical-row"><span class="typical-label">L</span><span class="typical-value typical-value-li-high">High</span></div>
+    </div>
+  </td>
+        <td><span class="rest-pill rest-red"><span class="pill-text">0</span></span></td>
+        <td class="text-left">
+    <div class="wl-cell">
+      <div class="wl-row"><span class="wl-label">7d:</span><span class="wl-value">12</span></div>
+      <div class="wl-row"><span class="wl-label">28d:</span><span class="wl-value">16</span></div>
+      <div class="wl-row"><span class="wl-label">ACR:</span><span class="wl-value">0.8</span></div>
+      <div class="wl-row"><span class="wl-label">5d:</span><span class="wl-value">2/5</span></div>
+    </div>
+  </td>
+        <td class=""><div class="activity-stack">
+      <span class="activity-cell activity-game">
+        <span class="pill-text">
+          <span class="pill-prefix">G</span>
+          <span class="pill-detail">1.0 IP 16 P</span>
+        </span>
+      </span>
+    </div></td><td class=""><div class="activity-stack"><span class="activity-cell activity-warmup"><span class="pill-text">W 8</span></span>
+      <span class="activity-cell activity-game">
+        <span class="pill-text">
+          <span class="pill-prefix">G</span>
+          <span class="pill-detail">1.0 IP 23 P</span>
+        </span>
+      </span>
+    </div></td><td class="col-selected"><div class="activity-stack">
+      <span class="activity-cell activity-game">
+        <span class="pill-text">
+          <span class="pill-prefix">G</span>
+          <span class="pill-detail">1.0 IP 10 P</span>
+        </span>
+      </span>
+    </div></td><td class="col-future col-boundary"><div class="activity-stack"><span class="activity-cell activity-cp"><span class="pill-text">CP 16</span></span></div></td>
+        <td><div class="flag-stack"><span class="flag-badge flag-b2b"><span class="pill-text">B2B</span></span><span class="flag-badge flag-rel"><span class="pill-text">VELO</span></span><span class="flag-badge flag-lev"><span class="pill-text">LEV</span></span><span class="flag-badge flag-hs"><span class="pill-text">HS</span></span></div></td>
+        <td class="trend-cell"><div class="sparkline-wrap"><svg width="122" height="34" viewBox="0 0 122 34" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="31" x2="119" y2="31" stroke="#D5DFEB" stroke-width="1"/><rect x="36.55" y="28.71" width="2.50" height="2.29" rx="1.00" fill="#AEBFD6" opacity="0.92"/><rect x="59.75" y="27.00" width="2.50" height="4.00" rx="1.00" fill="#AEBFD6" opacity="0.92"/><rect x="106.15" y="28.14" width="2.50" height="2.86" rx="1.00" fill="#AEBFD6" opacity="0.92"/><polygon points="14.60,22.48 37.80,20.46 37.80,21.61 14.60,21.61" fill="#2563EB" opacity="0.14"/><polygon points="37.80,20.46 61.00,17.85 61.00,21.33 37.80,21.61" fill="#2563EB" opacity="0.14"/><polygon points="61.00,17.85 84.20,18.72 84.20,21.04 61.00,21.33" fill="#2563EB" opacity="0.14"/><polygon points="84.20,18.72 107.40,15.82 107.40,4.52 84.20,21.04" fill="#2563EB" opacity="0.14"/><path d="M 14.60 21.61 L 37.80 21.61 L 61.00 21.33 L 84.20 21.04 L 107.40 4.52" fill="none" stroke="#1E293B" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M 14.60 22.48 L 37.80 20.46 L 61.00 17.85 L 84.20 18.72 L 107.40 15.82" fill="none" stroke="#2563EB" stroke-opacity="0.88" stroke-width="1.55" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="107.40" cy="4.52" r="2.45" fill="#0F766E" stroke="#F8FAFC" stroke-width="0.8"/></svg></div></td>
+      </tr>
+    
+      <tr>
+        <td class="text-left">
+          <div class="pitcher-cell">
+            <div class="pitcher-name">Butto, Jose</div>
+          </div>
+        </td>
+        <td class="text-left">
+    <div class="typical-cell">
+      <div class="typical-row"><span class="typical-label">P</span><span class="typical-value">19</span></div><div class="typical-row"><span class="typical-label">IP</span><span class="typical-value">1.0</span></div><div class="typical-row"><span class="typical-label">R</span><span class="typical-value">4.0</span></div><div class="typical-row"><span class="typical-label">L</span><span class="typical-value typical-value-li-medium">Med</span></div>
+    </div>
+  </td>
+        <td><span class="rest-pill rest-green"><span class="pill-text">2</span></span></td>
+        <td class="text-left">
+    <div class="wl-cell">
+      <div class="wl-row"><span class="wl-label">7d:</span><span class="wl-value">15</span></div>
+      <div class="wl-row"><span class="wl-label">28d:</span><span class="wl-value">17</span></div>
+      <div class="wl-row"><span class="wl-label">ACR:</span><span class="wl-value">0.9</span></div>
+      <div class="wl-row"><span class="wl-label">5d:</span><span class="wl-value">2/5</span></div>
+    </div>
+  </td>
+        <td class=""><div class="activity-stack">
+      <span class="activity-cell activity-gb">
+        <span class="pill-text">
+          <span class="pill-prefix">GB</span>
+          <span class="pill-detail">2.0 IP 24 P</span>
+        </span>
+      </span>
+    </div></td><td class=""><div class="activity-stack">
+      <span class="activity-cell activity-game">
+        <span class="pill-text">
+          <span class="pill-prefix">G</span>
+          <span class="pill-detail">1.0 IP 22 P</span>
+        </span>
+      </span>
+    </div></td><td class="col-selected"><div class="activity-stack"><span class="activity-cell activity-cp"><span class="pill-text">CP 8</span></span></div></td><td class="col-future col-boundary"><span class="empty-cell">—</span></td>
+        <td><div class="flag-stack"><span class="flag-empty">—</span></div></td>
+        <td class="trend-cell"><div class="sparkline-wrap"><svg width="122" height="34" viewBox="0 0 122 34" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="31" x2="119" y2="31" stroke="#D5DFEB" stroke-width="1"/><rect x="36.55" y="28.71" width="2.50" height="2.29" rx="1.00" fill="#AEBFD6" opacity="0.92"/><rect x="59.75" y="27.00" width="2.50" height="4.00" rx="1.00" fill="#AEBFD6" opacity="0.92"/><rect x="106.15" y="28.14" width="2.50" height="2.86" rx="1.00" fill="#AEBFD6" opacity="0.92"/><polygon points="14.60,22.48 37.80,20.83 37.80,21.78 14.60,21.78" fill="#2563EB" opacity="0.14"/><polygon points="37.80,20.83 61.00,18.70 61.00,21.54 37.80,21.78" fill="#2563EB" opacity="0.14"/><polygon points="61.00,18.70 84.20,19.41 84.20,21.30 61.00,21.54" fill="#2563EB" opacity="0.14"/><polygon points="84.20,19.41 107.40,9.72 107.40,4.52 84.20,21.30" fill="#2563EB" opacity="0.14"/><path d="M 14.60 21.78 L 37.80 21.78 L 61.00 21.54 L 84.20 21.30 L 107.40 4.52" fill="none" stroke="#1E293B" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M 14.60 22.48 L 37.80 20.83 L 61.00 18.70 L 84.20 19.41 L 107.40 9.72" fill="none" stroke="#2563EB" stroke-opacity="0.88" stroke-width="1.55" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="107.40" cy="4.52" r="2.45" fill="#64748B" stroke="#F8FAFC" stroke-width="0.8"/></svg></div></td>
+      </tr>
+    
+        </tbody>
+      </table>
+
+      
+    <div class="monitoring-legend">
+      <span class="monitoring-legend-text">
+        <em>P = Pitches, IP = Innings, R = Rest, L = Leverage, 7d = 7d Rolling Game Average, 28d = 28d Rolling Average, ACR = Acute:Chronic Pitching Workload Ratio</em>
+      </span>
+    </div>
+  
+      
+    <section class="recent-usage-section">
+      <div class="recent-usage-title">Last 7 Games - Reliever Entrances by Leverage</div>
+      <table class="recent-usage-table">
+        
+    <colgroup>
+      <col style="width:26.500%" /><col style="width:23.500%" /><col style="width:26.500%" /><col style="width:23.500%" />
+    </colgroup>
+  
+        <thead>
+          <tr><th colspan="2">3/9 MON</th><th colspan="2">3/10 TUE</th></tr>
+        </thead>
+        <tbody>
+          <tr class="recent-usage-row recent-usage-row-starter" data-row-number="1">
+        <td class="recent-usage-name-cell recent-usage-name-right recent-usage-name-starter">&nbsp;</td>
+        <td class="recent-usage-context-cell recent-usage-context-starter"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      
+        <td class="recent-usage-name-cell recent-usage-name-right recent-usage-name-starter">&nbsp;</td>
+        <td class="recent-usage-context-cell recent-usage-context-starter"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      </tr><tr class="recent-usage-row" data-row-number="2">
+        <td class="recent-usage-name-cell recent-usage-name-left">&nbsp;</td>
+        <td class="recent-usage-context-cell recent-usage-context-medium"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      
+        <td class="recent-usage-name-cell recent-usage-name-left">&nbsp;</td>
+        <td class="recent-usage-context-cell recent-usage-context-high"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      </tr><tr class="recent-usage-row" data-row-number="3">
+        <td class="recent-usage-name-cell recent-usage-name-right">&nbsp;</td>
+        <td class="recent-usage-context-cell recent-usage-context-low"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      
+        <td class="recent-usage-name-cell recent-usage-name-empty">&nbsp;</td>
+        <td class="recent-usage-context-cell recent-usage-context-empty"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    </section>
+  
+</body>
+</html>

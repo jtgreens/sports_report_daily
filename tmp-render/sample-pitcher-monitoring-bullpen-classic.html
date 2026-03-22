@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <style>
+    
+    
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-400.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-600.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Source Sans 3 PDF";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("file:///Users/jgreenshields/Documents/cf-pwl-pdf/assets/fonts/source-sans-3-700.ttf") format("truetype");
+    }
+  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      background: #ffffff;
+    }
+    body {
+      font-family: "Source Sans 3 PDF", "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      color: #0b1526;
+      background: #ffffff;
+      font-size: 11.35px;
+      line-height: 1.38;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      text-rendering: geometricPrecision;
+      font-synthesis-weight: none;
+    }
+    .page {
+      width: 100%;
+      padding: 12px 16px;
+    }
+
+    /* Header */
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #002D72;
+      padding-bottom: 9px;
+      margin-bottom: 10px;
+    }
+    .report-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .report-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #002D72;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .report-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .report-meta {
+      text-align: right;
+      font-size: 10px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    /* Summary cards row */
+    .summary-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .summary-card {
+      flex: 1;
+      background: #f5f8fc;
+      border: 1px solid #d6dee9;
+      border-radius: 8px;
+      padding: 8px 10px 7px;
+      text-align: center;
+    }
+    .summary-card-label {
+      font-size: 9.2px;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.35px;
+      margin-bottom: 2px;
+    }
+    .summary-card-value {
+      font-size: 18.5px;
+      font-weight: 800;
+      color: #002D72;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Section headers */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #002D72;
+      text-transform: uppercase;
+      letter-spacing: 0.32px;
+      margin-bottom: 7px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #cdd7e5;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.25px;
+      font-variant-numeric: tabular-nums;
+    }
+    .data-table th {
+      background: #002D72;
+      color: #ffffff;
+      padding: 6px 8px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.24px;
+      white-space: nowrap;
+      border: 1px solid #1e3a8a;
+    }
+    .data-table td {
+      padding: 5px 8px;
+      text-align: center;
+      border: 1px solid #bcc8d8;
+      white-space: nowrap;
+    }
+    .data-table tbody tr:nth-child(even) {
+      background: #f4f7fb;
+    }
+    .data-table td.text-left {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    /* Two-column layout */
+    .two-col {
+       display: flex;
+       gap: 16px;
+       margin-bottom: 12px;
+     }
+    .two-col > * {
+      flex: 1;
+    }
+
+    /* Three-column layout */
+    .three-col {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    /* Chart containers */
+     .chart-container {
+       border: 1px solid #d6dee9;
+       border-radius: 8px;
+       padding: 10px 11px;
+       background: #fbfcfe;
+     }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #cdd7e5;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 8px;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: 0.15px;
+    }
+
+    /* Pitch type color dot */
+    .pitch-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 6px;
+      font-size: 9.2px;
+      color: #475569;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+  
+    
+    @page { size: letter landscape; margin: 5.5mm 6mm; }
+
+    html, body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .classic-report-page {
+      width: 100%;
+      padding: 3px 5px 5px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .report-page-break {
+      break-after: page;
+      page-break-after: always;
+    }
+    .classic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      position: relative;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #A9A9A9;
+    }
+    .classic-header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: #FF5910;
+    }
+    .classic-header-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
+    }
+    .classic-header-kicker {
+      font-size: 5.55px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .classic-header-title-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+    .classic-header-logo-shell {
+      width: 21px;
+      height: 21px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #d9e1ea;
+      border-radius: 999px;
+      background: #ffffff;
+      flex-shrink: 0;
+    }
+    .classic-header-title-block {
+      min-width: 0;
+    }
+    .classic-header-title {
+      font-size: 12.8px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: #002D72;
+      text-transform: uppercase;
+    }
+    .classic-header-meta {
+      margin-top: 2px;
+      font-size: 5.95px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.15;
+      white-space: normal;
+    }
+    .classic-header-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 1px;
+      min-width: 118px;
+      padding-left: 10px;
+      border-left: 1px solid #dbe2eb;
+    }
+    .classic-header-logo {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+    }
+    .classic-header-side-label {
+      font-size: 5.25px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #64748b;
+      line-height: 1;
+    }
+    .classic-header-generated {
+      font-size: 5.55px;
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.1;
+      text-align: right;
+    }
+
+    .classic-board-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: 1.35px solid #000000;
+      background: #ffffff;
+      font-variant-numeric: tabular-nums;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .classic-board-table th,
+    .classic-board-table td {
+      border-right: 1px solid #A9A9A9;
+      border-bottom: 1px solid #A9A9A9;
+      padding: 2px 4px;
+      font-size: 6.35px;
+      line-height: 1.08;
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .classic-board-table th:last-child,
+    .classic-board-table td:last-child {
+      border-right: 0;
+    }
+    .classic-board-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .classic-group-row th {
+      border: 0 !important;
+      padding: 0 4px 4px;
+      background: transparent !important;
+      color: #111827;
+      font-size: 5.75px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      text-align: center;
+    }
+    .classic-group-spacer {
+      padding: 0 !important;
+    }
+    .classic-group-current {
+      color: #0f172a;
+    }
+    .classic-main-row th {
+      background: #002D72;
+      color: #ffffff;
+      font-size: 5.95px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 4px;
+      border-bottom: 2px solid #FF5910;
+    }
+    .classic-main-row th.col-first-date,
+    .classic-board-table td.col-first-date {
+      border-left: 2px solid #000000;
+    }
+    .classic-main-row th.col-boundary,
+    .classic-board-table td.col-boundary {
+      border-left: 2px solid #000000;
+    }
+    .classic-main-row th.col-current {
+      background: #12356f;
+    }
+    .classic-fixed {
+      text-align: center;
+    }
+    .classic-fixed-pitcher {
+      text-align: left !important;
+    }
+    .classic-fixed-days-off,
+    .classic-meta-cell-days-off {
+      border-right: 2px solid #000000 !important;
+    }
+    .classic-text-left {
+      text-align: left !important;
+    }
+    .classic-pitcher-cell,
+    .classic-meta-cell {
+      background: #ffffff;
+    }
+    .classic-pitcher-cell {
+      padding-left: 6px !important;
+      border-left: 1px solid #000000;
+    }
+    .classic-meta-cell {
+      font-size: 6.05px;
+      color: #111827;
+    }
+    .classic-pitcher-name {
+      display: inline-block;
+      max-width: 100%;
+      font-size: 7px;
+      font-weight: 700;
+      line-height: 1.04;
+    }
+    .classic-pitcher-name-left { color: #dc2626; }
+    .classic-pitcher-name-right { color: #111827; }
+    .classic-pitcher-name-switch { color: #FF5910; }
+    .classic-leverage-value,
+    .classic-length-value,
+    .classic-days-off-value {
+      display: inline-block;
+      width: 100%;
+    }
+    .classic-leverage-value {
+      padding: 3px 2px;
+      font-size: 6.05px;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.04;
+    }
+    .classic-leverage-high { background: #FDAE61; }
+    .classic-leverage-medium { background: #FBD9B5; }
+    .classic-leverage-low { background: #FFF4E6; }
+    .classic-length-value,
+    .classic-days-off-value {
+      color: #111827;
+      font-weight: 600;
+      line-height: 1.04;
+    }
+
+    .classic-date-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      line-height: 1;
+    }
+    .classic-date-header-date {
+      font-size: 9px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .classic-date-header-day {
+      margin-top: 1px;
+      font-size: 5.6px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .classic-day-cell {
+      padding: 0 !important;
+      background: #ffffff;
+    }
+    .classic-day-board {
+      min-height: 27px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      width: 100%;
+      padding: 2px 2px 1px;
+      background: #ffffff;
+    }
+    .classic-day-board-top {
+      display: block;
+      max-width: 100%;
+      font-size: 6.65px;
+      font-weight: 800;
+      line-height: 1.02;
+      color: #111827;
+      white-space: nowrap;
+    }
+    .classic-day-board-bottom {
+      display: block;
+      max-width: 100%;
+      font-size: 5.1px;
+      font-weight: 700;
+      line-height: 1.02;
+      color: #5b6472;
+      text-transform: none;
+      white-space: nowrap;
+    }
+    .classic-day-board-empty {
+      background: #F5F5F5;
+    }
+    .classic-day-board-future-empty {
+      background: #F8FAFC;
+    }
+    .classic-board-table td.col-future {
+      background: #F8FAFC;
+    }
+    .classic-board-table td.col-current {
+      background: #fcfdff;
+    }
+    .classic-board-table .day-block-neutral {
+      background: #ffffff;
+    }
+    .classic-board-table .day-block-heat-1 {
+      background: #F3E1DC;
+    }
+    .classic-board-table .day-block-heat-2 {
+      background: #F4D0CA;
+    }
+    .classic-board-table .day-block-heat-3 {
+      background: #F5BBB4;
+    }
+    .classic-board-table .day-block-heat-4 {
+      background: #F59B95;
+    }
+    .classic-board-table .day-block-heat-5 {
+      background: #FF6961;
+    }
+
+    .classic-footnotes {
+      margin-top: 4px;
+      border-top: 1px solid #A9A9A9;
+      padding-top: 3px;
+    }
+    .classic-report-meta {
+      display: grid;
+      gap: 2px;
+    }
+    .classic-report-meta-row {
+      display: grid;
+      grid-template-columns: 33px 1fr;
+      column-gap: 8px;
+      align-items: baseline;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .classic-report-meta-label {
+      font-size: 5.55px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .classic-report-meta-text {
+      font-size: 5.5px;
+      line-height: 1.18;
+      color: #667085;
+      orphans: 2;
+      widows: 2;
+    }
+
+    .classic-recent-section,
+    .classic-comments-section {
+      margin-top: 5px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .classic-recent-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: 1px solid #000000;
+      background: #ffffff;
+      font-variant-numeric: tabular-nums;
+    }
+    .classic-recent-table th,
+    .classic-recent-table td {
+      border-right: 1px solid #A9A9A9;
+      border-bottom: 1px solid #A9A9A9;
+      padding: 2px 4px;
+      font-size: 5.8px;
+      line-height: 1.05;
+      vertical-align: middle;
+    }
+    .classic-recent-table th:last-child,
+    .classic-recent-table td:last-child {
+      border-right: 0;
+    }
+    .classic-recent-superhead th {
+      padding: 3px 6px;
+      background: #002D72;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 5.95px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+    }
+    .classic-recent-gamehead th {
+      padding: 3px 3px;
+      background: #002D72;
+      color: #ffffff;
+      border-bottom: 2px solid #FF5910;
+      font-size: 5.55px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+    .classic-recent-row td {
+      background: #ffffff;
+    }
+    .classic-recent-row:nth-child(even) td {
+      background: #fbfcfd;
+    }
+    .classic-recent-row-starter td {
+      background: #DFE5ED;
+      border-bottom: 2px solid #FF5910;
+    }
+    .classic-recent-section[data-density="sparse"] .classic-recent-table td {
+      padding-top: 1px;
+      padding-bottom: 1px;
+    }
+    .classic-recent-table .recent-usage-name-cell {
+      font-size: 6px;
+      font-weight: 700;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .classic-recent-table .recent-usage-name-left { color: #dc2626; }
+    .classic-recent-table .recent-usage-name-right { color: #111827; }
+    .classic-recent-table .recent-usage-name-switch { color: #FF5910; }
+    .classic-recent-table .recent-usage-name-starter {
+      font-style: italic;
+      color: #111827;
+    }
+    .classic-recent-table .recent-usage-name-empty {
+      color: transparent;
+    }
+    .classic-recent-table .recent-usage-context-cell {
+      background: #ffffff;
+    }
+    .classic-recent-table .recent-usage-context-top {
+      min-height: 7px;
+      font-size: 5.7px;
+      font-weight: 700;
+      line-height: 1.02;
+      color: #111827;
+      white-space: nowrap;
+    }
+    .classic-recent-table .recent-usage-context-bottom {
+      min-height: 6px;
+      margin-top: 1px;
+      font-size: 5.1px;
+      line-height: 1.02;
+      color: #667085;
+      white-space: nowrap;
+    }
+    .classic-recent-section[data-density="sparse"] .recent-usage-context-top {
+      min-height: 6px;
+    }
+    .classic-recent-section[data-density="sparse"] .recent-usage-context-bottom {
+      min-height: 5px;
+    }
+    .classic-recent-table .recent-usage-context-high { background: #FDAE61 !important; }
+    .classic-recent-table .recent-usage-context-medium { background: #FBD9B5 !important; }
+    .classic-recent-table .recent-usage-context-low { background: #FFF4E6 !important; }
+    .classic-recent-table .recent-usage-context-neutral { background: #F5F5F5 !important; }
+    .classic-recent-table .recent-usage-context-starter,
+    .classic-recent-table .recent-usage-context-empty {
+      background: #fbfcfe !important;
+    }
+
+    .classic-comments-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: 1px solid #000000;
+      background: #ffffff;
+    }
+    .classic-comments-table th,
+    .classic-comments-table td {
+      border-bottom: 1px solid #A9A9A9;
+      vertical-align: top;
+    }
+    .classic-comments-table thead th {
+      padding: 3px 6px;
+      background: #002D72;
+      color: #ffffff;
+      border-bottom: 2px solid #FF5910;
+      font-size: 5.95px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    .classic-comments-table tbody td {
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .classic-comments-body {
+      background: #ffffff;
+      padding: 0 6px;
+      min-height: 56px;
+    }
+    .classic-comments-line {
+      min-height: 18px;
+      border-bottom: 1px solid #A9A9A9;
+      font-size: 5.9px;
+      line-height: 17px;
+      color: #475569;
+    }
+    .classic-comments-line:last-child {
+      border-bottom: 0;
+    }
+    .classic-comments-text {
+      line-height: 1.3;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      min-height: 18px;
+    }
+  
+  </style>
+</head>
+<body>
+
+    <!-- pitcher-monitoring-template:2026-03-21-bullpen-classic-v2 -->
+    <section class="page classic-report-page " data-role="">
+      
+    <header class="classic-header">
+      <div class="classic-header-main">
+        <div class="classic-header-kicker">Daily Workload Reporting</div>
+        <div class="classic-header-title-row">
+          <span class="classic-header-logo-shell">
+            <img class="classic-header-logo" src="https://upload.wikimedia.org/wikipedia/en/7/7b/New_York_Mets.svg" alt="Mets" />
+          </span>
+          <div class="classic-header-title-block">
+            <div class="classic-header-title">Relief Pitcher</div>
+            <div class="classic-header-meta">Mar 15, 2026 • PG+GB • 40MAN • Availability Board</div>
+          </div>
+        </div>
+      </div>
+      <div class="classic-header-side">
+        <span class="classic-header-side-label">Generated</span>
+        <span class="classic-header-generated">Mar 21, 2026, 12:10 PM ET</span>
+      </div>
+    </header>
+  
+      <table class="classic-board-table">
+        <thead>
+          
+    <tr class="classic-group-row">
+      <th class="classic-group-spacer" colspan="1">&nbsp;</th><th class="classic-group-recent" colspan="3">Recent</th><th class="classic-group-past" colspan="2">Prior Workload</th><th class="classic-group-current" colspan="1">Today</th><th class="classic-group-future" colspan="1">Planned</th>
+    </tr>
+    <tr class="classic-main-row">
+      <th class="classic-fixed classic-fixed-pitcher" style="width:132px">Pitcher</th>
+      <th class="classic-fixed classic-fixed-leverage" style="width:72px">Leverage</th>
+      <th class="classic-fixed classic-fixed-length" style="width:84px">Length</th>
+      <th class="classic-fixed classic-fixed-days-off" style="width:58px">Days Off</th>
+      
+    <th class="col-first-date">
+      <div class="classic-date-header">
+        <span class="classic-date-header-date">3/13</span>
+        <span class="classic-date-header-day">Fri</span>
+      </div>
+    </th>
+  
+    <th class="">
+      <div class="classic-date-header">
+        <span class="classic-date-header-date">3/14</span>
+        <span class="classic-date-header-day">Sat</span>
+      </div>
+    </th>
+  
+    <th class="col-current">
+      <div class="classic-date-header">
+        <span class="classic-date-header-date">3/15</span>
+        <span class="classic-date-header-day">Sun</span>
+      </div>
+    </th>
+  
+    <th class="col-future col-boundary">
+      <div class="classic-date-header">
+        <span class="classic-date-header-date">3/16</span>
+        <span class="classic-date-header-day">Mon</span>
+      </div>
+    </th>
+  
+    </tr>
+  
+        </thead>
+        <tbody>
+          
+      <tr class="classic-board-row">
+        <td class="classic-text-left classic-pitcher-cell"><span class="classic-pitcher-name classic-pitcher-name-left">Peterson, David</span></td>
+        <td class="classic-meta-cell classic-meta-cell-leverage"><span class="classic-leverage-value classic-leverage-high">High</span></td>
+        <td class="classic-meta-cell classic-meta-cell-length"><span class="classic-length-value">1 Inning</span></td>
+        <td class="classic-meta-cell classic-meta-cell-days-off"><span class="classic-days-off-value">0</span></td>
+        <td class="col-first-date classic-day-cell">
+    <div class="classic-day-board day-block-heat-2" data-wl="5">
+      <span class="classic-day-board-top">16 PIT | 1.0 IP</span>
+      <span class="classic-day-board-bottom">G</span>
+    </div>
+  </td><td class="classic-day-cell">
+    <div class="classic-day-board day-block-heat-3" data-wl="12">
+      <span class="classic-day-board-top">23 PIT | 1.0 IP</span>
+      <span class="classic-day-board-bottom">W 8</span>
+    </div>
+  </td><td class="col-current classic-day-cell">
+    <div class="classic-day-board day-block-heat-2" data-wl="6">
+      <span class="classic-day-board-top">10 PIT | 1.0 IP</span>
+      <span class="classic-day-board-bottom">G</span>
+    </div>
+  </td><td class="col-future col-boundary classic-day-cell">
+    <div class="classic-day-board day-block-heat-1" data-wl="1">
+      <span class="classic-day-board-top">16 PIT</span>
+      <span class="classic-day-board-bottom">CP</span>
+    </div>
+  </td>
+      </tr>
+    
+      <tr class="classic-board-row">
+        <td class="classic-text-left classic-pitcher-cell"><span class="classic-pitcher-name classic-pitcher-name-right">Butto, Jose</span></td>
+        <td class="classic-meta-cell classic-meta-cell-leverage"><span class="classic-leverage-value classic-leverage-medium">Medium</span></td>
+        <td class="classic-meta-cell classic-meta-cell-length"><span class="classic-length-value">Multi-Inning</span></td>
+        <td class="classic-meta-cell classic-meta-cell-days-off"><span class="classic-days-off-value">2</span></td>
+        <td class="col-first-date classic-day-cell">
+    <div class="classic-day-board day-block-heat-4" data-wl="18">
+      <span class="classic-day-board-top">24 PIT | 2.0 IP</span>
+      <span class="classic-day-board-bottom">GB</span>
+    </div>
+  </td><td class="classic-day-cell">
+    <div class="classic-day-board day-block-heat-2" data-wl="8">
+      <span class="classic-day-board-top">22 PIT | 1.0 IP</span>
+      <span class="classic-day-board-bottom">Up 1x</span>
+    </div>
+  </td><td class="col-current classic-day-cell">
+    <div class="classic-day-board day-block-neutral" data-wl="0">
+      <span class="classic-day-board-top">8 PIT</span>
+      <span class="classic-day-board-bottom">CP</span>
+    </div>
+  </td><td class="col-future col-boundary classic-day-cell"><div class="classic-day-board classic-day-board-future-empty">&nbsp;</div></td>
+      </tr>
+    
+        </tbody>
+      </table>
+      <div class="classic-footnotes">
+        
+    <div class="classic-report-meta">
+      
+    <div class="classic-report-meta-row">
+      <span class="classic-report-meta-label">Note</span>
+      <span class="classic-report-meta-text">Pitchers are ordered by handedness. Each activity cell shows the highest-priority session for that date, with same-day context shown on the second line.</span>
+    </div>
+  
+      
+    <div class="classic-report-meta-row">
+      <span class="classic-report-meta-label">Legend</span>
+      <span class="classic-report-meta-text">P = Pitches, IP = Innings, Up = Up Count, W = Warm-up Pitches.</span>
+    </div>
+  
+    </div>
+  
+      </div>
+      
+    <section class="classic-recent-section" data-density="sparse">
+      <table class="classic-recent-table">
+        
+    <colgroup>
+      <col style="width:26.500%" /><col style="width:23.500%" /><col style="width:26.500%" /><col style="width:23.500%" />
+    </colgroup>
+  
+        <thead>
+          <tr class="classic-recent-superhead">
+            <th colspan="4">Last 7 Games - Reliever Entrances by Leverage</th>
+          </tr>
+          <tr class="classic-recent-gamehead"><th colspan="2">3/9 Mon</th><th colspan="2">3/10 Tue</th></tr>
+        </thead>
+        <tbody>
+          <tr class="classic-recent-row classic-recent-row-starter" data-row-number="1">
+        <td class="recent-usage-name-cell recent-usage-name-right recent-usage-name-starter">Starter</td>
+        <td class="recent-usage-context-cell recent-usage-context-starter"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      
+        <td class="recent-usage-name-cell recent-usage-name-right recent-usage-name-starter">Starter</td>
+        <td class="recent-usage-context-cell recent-usage-context-starter"><div class="recent-usage-context-top">&nbsp;</div><div class="recent-usage-context-bottom">&nbsp;</div></td>
+      </tr><tr class="classic-recent-row" data-row-number="2">
+        <td class="recent-usage-name-cell recent-usage-name-left">Peterson</td>
+        <td class="recent-usage-context-cell recent-usage-context-medium"><div class="recent-usage-context-top">7th 2-1</div><div class="recent-usage-context-bottom">1 on, 2 out</div></td>
+      
+        <td class="recent-usage-name-cell recent-usage-name-right">Butto</td>
+        <td class="recent-usage-context-cell recent-usage-context-high"><div class="recent-usage-context-top">8th 3-2</div><div class="recent-usage-context-bottom">2 on, 1 out</div></td>
+      </tr><tr class="classic-recent-row" data-row-number="3">
+        <td class="recent-usage-name-cell recent-usage-name-right">Butto</td>
+        <td class="recent-usage-context-cell recent-usage-context-low"><div class="recent-usage-context-top">9th 4-2</div><div class="recent-usage-context-bottom">Clean</div></td>
+      
+        <td class="recent-usage-name-cell recent-usage-name-left">Peterson</td>
+        <td class="recent-usage-context-cell recent-usage-context-high"><div class="recent-usage-context-top">10th 3-3</div><div class="recent-usage-context-bottom">Ghost runner</div></td>
+      </tr>
+        </tbody>
+      </table>
+    </section>
+  
+      
+    <section class="classic-comments-section">
+      <table class="classic-comments-table">
+        <thead>
+          <tr>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="classic-comments-body">
+                <div class="classic-comments-line classic-comments-text">Peterson available for leverage; monitor if there is back-to-back traffic.</div><div class="classic-comments-line classic-comments-text">Butto available for coverage; keep length flexible if game extends.</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    </section>
+  
+</body>
+</html>
